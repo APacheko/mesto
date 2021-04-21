@@ -1,0 +1,11 @@
+.element {
+  font-family: 'Inter', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 282px);
+  grid-gap: 16px 16px;
+  justify-content: center;
+}
+

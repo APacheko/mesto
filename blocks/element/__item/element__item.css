@@ -1,0 +1,6 @@
+.element__item {
+  list-style-type: none;
+  border-radius: 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
