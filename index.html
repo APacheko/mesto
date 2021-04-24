@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./pages/index.css">
-  <title></title>
+  <title>Место Россия</title>
 </head>
 <body class="root">
   <div class="page">
@@ -15,7 +15,7 @@
       <section class=profile>
           <img class="profile__avatar" src="./images/avatar.jpg" alt="аватар">
           <div class="profile__info">
-            <h1 class="profile__name">Жак-Ив</h1>
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
             <p class="profile__about">Исследователь океана</p>
             <button class="profile__edit-btn" type="button"></button>
           </div>
@@ -28,7 +28,7 @@
             <img class="element__image" src="./images/kamchatka.jpg" alt="картинка">
             <div class="element__caption">
               <h2 class="element__title">Камчатка</h2>
-              <button class="element__btn-like" type="button"></button>
+              <button class="element__btn-like element__btn-like-activ" type="button"></button>
             </div>
           </li>
           <li class="element__item">
@@ -73,9 +73,17 @@
       <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
     </footer>
     <div class="popup">
-      <form class="popup__container"></form>
+      <form class="popup__container">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <fieldset class="popup__field">
+          <input class="popup__item popup__item_type-name" type="text" placeholder="Имя" maxlength="50" required>
+          <input class="popup__item popup__item_type-about" type="text" placeholder="О себе" maxlength="50" required>
+        </fieldset>
+        <button class="popup__save-btn" type="submit">Сохранить</button>
+        <button class="popup__close-btn" type="button"></button>
+      </form>
     </div>
-
   </div>
+  <script src="./src/script.js"></script>
 </body>
 </html>
