@@ -18,11 +18,11 @@ profileEditBtn.addEventListener('click', renderPopup);
 popupClose.addEventListener('click', renderPopup);
 
 function sabmitProfile (evt) {
-    evt.preventDefault();
-    profileName.textContent = inputName.value;
-    profileAbout.textContent = inputAbout.value;
-    popup.classList.toggle('popup_opened');
-    }
+  evt.preventDefault();
+  profileName.textContent = inputName.value;
+  profileAbout.textContent = inputAbout.value;
+  popup.classList.toggle('popup_opened');
+}
 
-    popupContainer.addEventListener('submit', sabmitProfile);
+popupContainer.addEventListener('submit', sabmitProfile);
 
