@@ -1,5 +1,6 @@
 .profile__name {
   margin: 0;
+  max-width: 450px;
   font-size: 42px;
   line-height: 1.15;
   font-weight: 500;
@@ -12,5 +13,6 @@
   .profile__name {
     font-size: 27px;
     line-height: 1.2;
+    max-width: 230px;
   }
  }

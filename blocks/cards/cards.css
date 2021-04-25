@@ -1,11 +1,11 @@
-.elements {
+.cards {
   margin: 0 auto;
   max-width: 880px;
   padding-top: 50px;
 }
 
 @media (max-width: 890px) {
-  .elements {
+  .cards {
     padding: 36px 19px 0;
   }
  }
