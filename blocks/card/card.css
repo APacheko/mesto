@@ -1,4 +1,5 @@
 .card {
+  position: relative;
   list-style-type: none;
   border-radius: 10px;
   box-sizing: border-box;

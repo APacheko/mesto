@@ -23,57 +23,16 @@
       </section>
 
       <section class=cards>
-        <ul class=cards__list>
-          <li class="card">
-            <img class="card__image" src="./images/kamchatka.jpg" alt="картинка">
-            <div class="card__caption">
-              <h2 class="card__title">Камчатка</h2>
-              <button class="card__btn-like card__btn-like-activ" aria-label="лайк" type="button"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="./images/divnomorskoe.jpg" alt="картинка">
-            <div class="card__caption">
-              <h2 class="card__title">Дивноморское</h2>
-              <button class="card__btn-like card__btn-like-activ" type="button" aria-label="лайк"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="./images/sudak.jpg" alt="картинка">
-            <div class="card__caption">
-              <h2 class="card__title">Судак</h2>
-              <button class="card__btn-like card__btn-like-activ" type="button" aria-label="лайк"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="./images/kareliya.jpg" alt="картинка">
-            <div class="card__caption">
-              <h2 class="card__title">Карелия</h2>
-              <button class="card__btn-like card__btn-like-activ" type="button" aria-label="лайк"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="./images/baikal.jpg" alt="картинка">
-            <div class="card__caption">
-              <h2 class="card__title">Байкал</h2>
-              <button class="card__btn-like card__btn-like-activ" type="button" aria-label="лайк"></button>
-            </div>
-          </li>
-          <li class="card">
-            <img class="card__image" src="./images/alaniya.jpg" alt="картинка">
-            <div class="card__caption">
-              <h2 class="card__title">Алания</h2>
-              <button class="card__btn-like card__btn-like-activ" type="button" aria-label="лайк"></button>
-            </div>
-          </li>
-        </ul>
+        <ul class=cards__list></ul>
       </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
     </footer>
-    <article class="popup">
-      <form class="popup__container">
+
+    <!--Форма редактирования profile-->
+    <article class="popup popup_type_profile">
+      <form class="popup__container popup__container_type_profile">
         <h2 class="popup__title">Редактировать профиль</h2>
         <fieldset class="popup__field">
           <input class="popup__item popup__item_type_name" type="text" name="name" placeholder="Имя" maxlength="50" required>
@@ -83,6 +42,42 @@
         <button class="popup__close-btn" type="button" aria-label="закрыть"></button>
       </form>
     </article>
+
+     <!--Форма добавления img в card__list-->
+     <article class="popup popup_type_card">
+      <form class="popup__container popup__container_type_card">
+        <h2 class="popup__title">Новое место</h2>
+        <fieldset class="popup__field">
+          <input class="popup__item popup__item_type_img-name" type="text" name="imgName" placeholder="Название" maxlength="50" required>
+          <input class="popup__item popup__item_type_img-link" type="text" name="imgLink" placeholder="Ссылка на фотографию"  required>
+        </fieldset>
+        <button class="popup__save-btn" type="submit">Создать</button>
+        <button class="popup__close-btn" type="button" aria-label="закрыть"></button>
+      </form>
+    </article>
+    <!--full screen image-->
+
+    <article class='popup popup_type-full-screen'>
+      <div class="popup__container popup__container_type_full-screen">
+        <figure class='popup__figure'>
+          <img class="popup__full-screen" src="#" alt="Картинка">
+          <figcaption class="popup__caption"></figcaption>
+        </figure>
+        <button class="popup__close-btn" type="button" aria-label="закрыть"></button>
+      </div>
+    </article>
+
+     <!--Шаблон  card-->
+     <template id="card">
+      <li class="card">
+        <img class="card__image" src="" alt="">
+        <div class="card__caption">
+          <h2 class="card__title"></h2>
+          <button class="card__btn-like" aria-label="лайк" type="button"></button>
+          <button class="card__btn-delete" type="button" aria-label="удалить"></button>
+        </div>
+      </li>
+    </template>
   </div>
   <script src="./pages/index.js"></script>
 </body>
