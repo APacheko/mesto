@@ -19,32 +19,6 @@ const popupFullScreen = document.querySelector('.popup_type_full-screen');
 const popupCloseFullScreen = popupFullScreen.querySelector('.popup__close-btn');
 const fullImage = document.querySelector('.popup__full-screen');
 const caption = document.querySelector('.popup__caption');
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -52,21 +26,21 @@ function openPopup(popup) {
 
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
-};
+}
 
 function getProfile () {
   inputName.value = profileName.textContent;
   inputAbout.value = profileAbout.textContent;
 }
 
-function sabmitProfile (evt) {
+function submitProfile (evt) {
   evt.preventDefault();
   profileName.textContent = inputName.value;
   profileAbout.textContent = inputAbout.value;
   closePopup(popupProfile);
 }
 
-function sabmitCard (evt) {
+function submitCard (evt) {
   evt.preventDefault();
   cardList.prepend(generateCard(inputCardName.value, inputCardLink.value));
   closePopup(popupCard);
@@ -74,7 +48,7 @@ function sabmitCard (evt) {
   inputCardLink.value = '';
 }
 
-function FullScreenImage (name, link) {
+function fullScreenImage (name, link) {
   fullImage.src = link;
   fullImage.alt = name;
   caption.textContent = name;
@@ -84,12 +58,15 @@ function FullScreenImage (name, link) {
 function generateCard(name, link) {
   const cardTemplate = document.querySelector('#card').content;
   const card = cardTemplate.querySelector('.card').cloneNode(true);
-  card.querySelector('.card__image').src = link;
-  card.querySelector('.card__image').alt = name;
-  card.querySelector('.card__title').textContent = name;
+  const image = card.querySelector('.card__image');
+  const title = card.querySelector('.card__title');
+  image.src = link;
+  image.alt = name;
+  title.textContent = name;
 
   const cardImage = card.querySelector('.card__image');
-  cardImage.addEventListener('click', function(){ FullScreenImage (name, link);})
+  cardImage.addEventListener('click', function(){ fullScreenImage (name, link)
+  });
 
   card.querySelector('.card__btn-like').addEventListener('click', function(evt) {
     evt.target.classList.toggle('card__btn-like-active');
@@ -103,7 +80,7 @@ function generateCard(name, link) {
   });
 
   return card;
-  };
+  }
 
 initialCards.forEach(function (item) {
   cardList.append(generateCard(item.name, item.link));
@@ -114,6 +91,6 @@ profileAddBtn.addEventListener('click', function () {openPopup(popupCard)});
 popupCloseProfile.addEventListener('click', function () {closePopup(popupProfile)});
 popupCloseCard.addEventListener('click', function () {closePopup(popupCard)});
 popupCloseFullScreen.addEventListener('click', function () {closePopup(popupFullScreen)});
-formProfile.addEventListener('submit', sabmitProfile);
-formCard.addEventListener('submit', sabmitCard);
+formProfile.addEventListener('submit', submitProfile);
+formCard.addEventListener('submit', submitCard);
 
