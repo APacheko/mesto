@@ -9,7 +9,7 @@
   border: 0;
   border-radius: 2px;
   color: #FFFFFF;
-  margin: 48px auto 37px;
+  margin: 0 auto 37px;
   outline: none;
   cursor: pointer;
 }
@@ -18,11 +18,20 @@
   opacity: 0.8;
 }
 
+.popup__save-btn:disabled {
+  background-color: #fff;
+  color: rgb(209, 203, 203);
+  border: 1px solid rgb(209, 203, 203);
+  opacity: 1;
+  cursor: inherit;
+}
+
 @media (max-width: 617px) {
   .popup__save-btn {
     width: 238px;
     height: 46px;
     font-size: 14px;
-    margin: 45px auto 25px;
+    margin: 0 auto 25px;
   }
 }
+

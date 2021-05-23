@@ -7,4 +7,9 @@
   border: 0;
   outline: 0;
   border-bottom: 1px solid rgb(0, 0, 0, .2);
+  margin-bottom: 30px;
+}
+
+.popup__item:last-of-type {
+  margin-bottom: 48px;
 }

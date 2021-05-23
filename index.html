@@ -32,11 +32,13 @@
 
     <!--Форма редактирования profile-->
     <article class="popup popup_type_profile">
-      <form class="popup__container popup__container_type_profile">
+      <form class="popup__container popup__container_type_profile" name="formProfile" novalidate>
         <h2 class="popup__title">Редактировать профиль</h2>
         <fieldset class="popup__field">
-          <input class="popup__item popup__item_type_name" type="text" name="name" placeholder="Имя" maxlength="50" required>
-          <input class="popup__item popup__item_type_about" type="text" name="about" placeholder="О себе" maxlength="50" required>
+          <input class="popup__item popup__item_type_name" type="text" name="name" id="name" placeholder="Имя" minlength="2" maxlength="40" required>
+          <span class="popup__txt-error" id="name-error">#</span>
+          <input class="popup__item popup__item_type_about" type="text" name="about" id="about" placeholder="О себе" minlength="2" maxlength="200" required>
+          <span class="popup__txt-error" id="about-error">#</span>
         </fieldset>
         <button class="popup__save-btn" type="submit">Сохранить</button>
         <button class="popup__close-btn" type="button" aria-label="закрыть"></button>
@@ -45,18 +47,20 @@
 
      <!--Форма добавления img в card__list-->
      <article class="popup popup_type_card">
-      <form class="popup__container popup__container_type_card">
+      <form class="popup__container popup__container_type_card" name="formCard" novalidate>
         <h2 class="popup__title">Новое место</h2>
         <fieldset class="popup__field">
-          <input class="popup__item popup__item_type_img-name" type="text" name="imgName" placeholder="Название" maxlength="50" required>
-          <input class="popup__item popup__item_type_img-link" type="url" name="imgLink" placeholder="Ссылка на фотографию"  required>
+          <input class="popup__item popup__item_type_img-name" type="text" name="imageName" id="image" placeholder="Название" minlength="2" maxlength="30" required>
+          <span class="popup__txt-error" id="image-error">#</span>
+          <input class="popup__item popup__item_type_img-link" type="url" name="imgLink" id="url" placeholder="Ссылка на фотографию"  required>
+          <span class="popup__txt-error" id="url-error">#</span>
         </fieldset>
         <button class="popup__save-btn" type="submit">Создать</button>
         <button class="popup__close-btn" type="button" aria-label="закрыть"></button>
       </form>
     </article>
-    <!--full screen image-->
 
+    <!--full screen image-->
     <article class='popup popup_type_full-screen'>
       <div class="popup__container popup__container_type_full-screen">
         <figure class='popup__figure'>
@@ -80,6 +84,7 @@
     </template>
   </div>
   <script src="./pages/initialCards.js"></script>
+  <script src="./pages/validate.js"></script>
   <script src="./pages/index.js"></script>
 </body>
 </html>
