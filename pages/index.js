@@ -29,7 +29,6 @@ const inputCardLink = document.querySelector('.popup__item_type_img-link');
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeKeyEsc);
-  popupSubmitProfile.classList.remove('form__submit-button_disabled')
 }
 
 //Функция закртия всех Popup
@@ -69,7 +68,7 @@ function submitProfile(evt) {
 }
 
 //Функция открытия Full screen картинки
-function fullScreenImage(name, link) {
+function openFullScreenImage(name, link) {
   fullImage.src = link;
   fullImage.alt = name;
   caption.textContent = name;
@@ -87,7 +86,7 @@ function generateCard(name, link) {
   title.textContent = name;
 
   const cardImage = card.querySelector('.card__image');
-  cardImage.addEventListener('click', function(){ fullScreenImage (name, link)
+  cardImage.addEventListener('click', function(){ openFullScreenImage (name, link)
   });
 
   card.querySelector('.card__btn-like').addEventListener('click', function(evt) {
