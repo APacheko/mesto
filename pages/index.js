@@ -105,8 +105,10 @@ popupCloseCard.addEventListener('click', function () {closePopup(popupCard)});
 popupCloseFullScreen.addEventListener('click', function () {closePopup(popupFullScreen)});
 formProfile.addEventListener('submit', submitProfile);
 formCard.addEventListener('submit', submitCard);
-document.addEventListener("click", closeOverlayClick);
 
+popupFullScreen.addEventListener("click", closeOverlayClick);
+popupCard.addEventListener("click", closeOverlayClick);
+popupProfile.addEventListener("click", closeOverlayClick);
 
 const formProfileValidation = new FormValidator(formConfig, formProfile);
 formProfileValidation.enableValidation();
