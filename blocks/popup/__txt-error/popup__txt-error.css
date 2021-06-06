@@ -4,8 +4,15 @@
   line-height: 1.2;
   color: #FF0000;
   margin: 5px 0 13px;
+  max-width: 354px;
 }
 
 .popup__txt-error:last-of-type {
   margin-bottom: 31px;
 }
+
+@media (max-width: 617px) {
+  .popup__txt-error {
+    max-width: 206px;
+  }
+ }

@@ -1,3 +1,8 @@
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+import {initialCards} from './initialCards.js';
+export {openPopup, popupFullScreen, caption, fullImage};
+
 //Profile
 const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__about');
@@ -7,7 +12,6 @@ const cardList = document.querySelector('.cards__list');
 //Popup profile
 const popupProfile = document.querySelector('.popup_type_profile');
 const popupCloseProfile = popupProfile.querySelector('.popup__close-btn');
-const popupSubmitProfile = popupProfile.querySelector('.popup__save-btn');
 const formProfile = document.querySelector('.popup__container_type_profile');
 //Popup cards
 const popupCard = document.querySelector('.popup_type_card');
@@ -24,6 +28,14 @@ const inputName = document.querySelector('.popup__item_type_name');
 const inputAbout = document.querySelector('.popup__item_type_about');
 const inputCardName = document.querySelector('.popup__item_type_img-name');
 const inputCardLink = document.querySelector('.popup__item_type_img-link');
+
+const formConfig = {
+  formSelector: 'form.popup__container',
+  inputSelector: '.popup__item',
+  submitButtonSelector: '.popup__save-btn',
+  inputErrorClass: 'popup__item_type_error',
+  errorClass: 'popup__txt-error_visible'
+};
 
 //Функция открытия всех Popup
 function openPopup(popup) {
@@ -67,40 +79,10 @@ function submitProfile(evt) {
   closePopup(popupProfile);
 }
 
-//Функция открытия Full screen картинки
-function openFullScreenImage(name, link) {
-  fullImage.src = link;
-  fullImage.alt = name;
-  caption.textContent = name;
-  openPopup(popupFullScreen);
-}
-
-//Функция создания card
 function generateCard(name, link) {
-  const cardTemplate = document.querySelector('#card').content;
-  const card = cardTemplate.querySelector('.card').cloneNode(true);
-  const image = card.querySelector('.card__image');
-  const title = card.querySelector('.card__title');
-  image.src = link;
-  image.alt = name;
-  title.textContent = name;
-
-  const cardImage = card.querySelector('.card__image');
-  cardImage.addEventListener('click', function(){ openFullScreenImage (name, link)
-  });
-
-  card.querySelector('.card__btn-like').addEventListener('click', function(evt) {
-    evt.target.classList.toggle('card__btn-like-active');
-  });
-
-  const deleteButton = card.querySelector('.card__btn-delete');
-  deleteButton.addEventListener('click',  function() {
-    const card = deleteButton.closest('.card');
-    card.remove();
-  });
-
-  return card;
-  }
+  const card = new Card(name, link, '#card')
+  return card.render();
+}
 
 // Функция сохранения card
 function submitCard(evt) {
@@ -116,8 +98,8 @@ initialCards.forEach(function (item) {
   cardList.append(generateCard(item.name, item.link));
 });
 
-profileEditBtn.addEventListener('click', function ()  { getProfile(), validateForm(popupProfile, config), openPopup(popupProfile)});
-profileAddBtn.addEventListener('click', function () {clearForm(popupCard, config), openPopup(popupCard)});
+profileEditBtn.addEventListener('click', function ()  {formProfileValidation.clearForm(true), getProfile(), openPopup(popupProfile)});
+profileAddBtn.addEventListener('click', function () {formCardValidation.clearForm(), openPopup(popupCard)});
 popupCloseProfile.addEventListener('click', function () {closePopup(popupProfile)});
 popupCloseCard.addEventListener('click', function () {closePopup(popupCard)});
 popupCloseFullScreen.addEventListener('click', function () {closePopup(popupFullScreen)});
@@ -125,4 +107,8 @@ formProfile.addEventListener('submit', submitProfile);
 formCard.addEventListener('submit', submitCard);
 document.addEventListener("click", closeOverlayClick);
 
-enableValidation(config);
+
+const formProfileValidation = new FormValidator(formConfig, formProfile);
+formProfileValidation.enableValidation();
+const formCardValidation = new FormValidator(formConfig, formCard);
+formCardValidation.enableValidation();
