@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
+ <!--<link rel="stylesheet" href="./pages/index.css">-->
   <title>Место Россия</title>
 </head>
 <body class="root">
   <div class="page">
     <header class="header">
-      <img class="header__logo" src="./images/logo.svg" alt="логотип">
+      <img src="<%=require('./images/logo.svg')%>" class="header__logo" alt="Логотип">
     </header>
     <main class="content">
       <section class=profile>
-          <img class="profile__avatar" src="./images/avatar.jpg" alt="аватар">
+          <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="аватар">
           <div class="profile__info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
             <p class="profile__about">Исследователь океана</p>
@@ -83,6 +83,5 @@
       </li>
     </template>
   </div>
-  <script type="module" src="./pages/index.js"></script>
 </body>
 </html>

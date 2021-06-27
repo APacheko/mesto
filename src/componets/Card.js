@@ -1,11 +1,9 @@
-import {openPopup, popupFullScreen, caption, fullImage} from './index.js';
-
 export default class Card {
-  constructor(name, link, templateSelector) {
+  constructor(name, link, templateSelector, handleCardClick) {
     this._name = name;
     this._link = link;
     this._templateSelector = templateSelector;
-
+    this._handleCardClick = handleCardClick;
     this._makeElements();
     this._setEventListeners()
   }
@@ -25,7 +23,7 @@ export default class Card {
   _setEventListeners() {
     this._likeButton.addEventListener('click', () => this._hendleLikeClick());
     this._deleteButton.addEventListener('click', () => this._hendleDeleteClick());
-    this._image.addEventListener('click', () => this._hendleOpenFullScreenClick());
+    this._image.addEventListener('click', () => this._handleCardClick(this._name, this._link));
   }
 
   _hendleLikeClick() {
@@ -34,13 +32,6 @@ export default class Card {
 
   _hendleDeleteClick() {
     this._cardElement.remove();
-  }
-
-  _hendleOpenFullScreenClick() {
-    fullImage.src = this._link;
-    fullImage.alt = this._name;
-    caption.textContent = this._name;
-    openPopup(popupFullScreen);
   }
 
   render() {
