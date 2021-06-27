@@ -6,6 +6,7 @@ import PopupWithImage from '../componets/PopupWithImage.js';
 import PopupWithForm from '../componets/PopupWithForm.js';
 import UserInfo from '../componets/UserInfo.js';
 import {
+  selectors,
   initialCards,
   formProfile,
   inputCardName,
@@ -21,25 +22,27 @@ import {
 
 const cardSection = new Section({
   items: initialCards,
-  renderer: generateCard
+  renderer: (item) => {
+    cardSection.addItem(generateCard(item))
+  }
 },
-".cards__list");
+selectors.cardList);
 cardSection.renderItems();
 
 const popupWithImage = new PopupWithImage({
-  popupSelector: '.popup_type_full-screen'
+  popupSelector: selectors.popupFullScreen
  });
 popupWithImage.setEventListeners();
 
-const cardForm = new PopupWithForm('.popup_type_card', submitCard);
+const cardForm = new PopupWithForm(selectors.popupCard, submitCard);
 cardForm.setEventListeners();
 
 const userInfo = new UserInfo({
-  nameSelector: '.profile__name',
-  aboutSelector: '.profile__about'
+  nameSelector: selectors.profileName,
+  aboutSelector: selectors.profileAbout
  });
 
-const profileForm = new PopupWithForm('.popup_type_profile', () => {
+const profileForm = new PopupWithForm(selectors.popupProfile, () => {
   const inputs = {
     name: inputName.value,
     about: inputAbout.value
@@ -60,13 +63,14 @@ function handleCardClick(name, link) {
 // Функция сохранения card
 function submitCard(evt) {
   evt.preventDefault();
-  cardList.prepend(generateCard({name: inputCardName.value, link: inputCardLink.value}));
+  cardSection.addItem(generateCard({name: inputCardName.value, link: inputCardLink.value}));
 }
 
 profileEditBtn.addEventListener('click', () => {
   formProfileValidation.clearForm(true);
-  inputName.value = userInfo.getUserInfo().name;
-  inputAbout.value = userInfo.getUserInfo().about;
+  const userInfoValue = userInfo.getUserInfo();
+  inputName.value = userInfoValue.name;
+  inputAbout.value = userInfoValue.about;
   profileForm.open();
 });
 

@@ -10,14 +10,24 @@ export const popupCloseCard = popupCard.querySelector('.popup__close-btn');
 export const profileAddBtn = document.querySelector('.profile__add-btn');
 export const formCard = document.querySelector('.popup__container_type_card');
 //Popup full screen
-export const fullImage = document.querySelector('.popup__full-screen');
-export const caption = document.querySelector('.popup__caption');
-
+//export const fullImage = document.querySelector('.popup__full-screen');
+//export const caption = document.querySelector('.popup__caption');
 //Inputs
 export const inputName = document.querySelector('.popup__item_type_name');
 export const inputAbout = document.querySelector('.popup__item_type_about');
 export const inputCardName = document.querySelector('.popup__item_type_img-name');
 export const inputCardLink = document.querySelector('.popup__item_type_img-link');
+
+export const selectors = {
+  cardList: '.cards__list',
+  popupFullScreen: '.popup_type_full-screen',
+  popupCard: '.popup_type_card',
+  profileName: '.profile__name',
+  profileAbout: '.profile__about',
+  popupProfile: '.popup_type_profile',
+  fullImage: '.popup__full-screen',
+  caption: '.popup__caption'
+};
 
 export const initialCards = [
   {
