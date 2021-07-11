@@ -3,8 +3,14 @@
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 30px;
+  position: relative;
 }
+
+.profile__avatar:hover {
+  transition: opacity .3s, opacity .3s linear;
+  opacity: 0.2;
+}
+
 
 @media (max-width: 617px) {
   .profile__avatar {

@@ -2,9 +2,11 @@ import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, submitForm){
-    super ({popupSelector: popupSelector});
+    super ({popupSelector});
     this._submitForm = submitForm;
     this._form = this._popup.querySelector('form.popup__container');
+    this._submitButton = this._popup.querySelector('.popup__save-btn');
+    this._savingButton = this._submitButton.textContent;
   }
 
   _getInputValues() {
@@ -29,4 +31,10 @@ export default class PopupWithForm extends Popup {
     });
   }
 
+  onLoading(){
+      this._submitButton.textContent = `Cохранение...`;
+    }
+  offLoading(){
+      this._submitButton.textContent = this._savingButton;
+    }
 }
