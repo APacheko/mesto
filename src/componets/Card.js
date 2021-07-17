@@ -4,15 +4,14 @@ export default class Card {
     this._link = link;
     this._ownerId = owner._id;
     this._cardId = _id;
-    this._likes = likes;
     this._userId = userId;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._handleCardLike = handleCardlike;
     this._handleCardDelete = handleCardDelete;
+    this.likes = likes;
     this._makeElements();
     this._setEventListeners();
-
   }
 
   _makeElements() {
@@ -30,7 +29,7 @@ export default class Card {
     if (this._ownerId != this._userId) {
       this._deleteButton.remove();
     }
-    this._likeCounter.textContent = this._likes.length;
+    this._likeCounter.textContent = this.likes.length;
     this.markLiked();
   }
 
@@ -40,9 +39,9 @@ export default class Card {
     this._image.addEventListener('click', () => this._handleCardClick(this._name, this._link));
   }
 
-  _hasLiked() {
+  hasLiked() {
     let result = false;
-    this._likes.forEach(like => {
+    this.likes.forEach(like => {
       if (like._id === this._userId) {
 
         result = true;
@@ -52,7 +51,7 @@ export default class Card {
   }
 
   markLiked() {
-    if (this._hasLiked()) {
+    if (this.hasLiked()) {
       this._likeButton.classList.add('card__btn-like-active');
     }
   }

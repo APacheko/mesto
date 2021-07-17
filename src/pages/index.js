@@ -10,9 +10,6 @@ import Api from '../componets/Api.js';
 import {
   selectors,
   formProfile,
-  inputAvatarLink,
-  inputCardName,
-  inputCardLink,
   inputName,
   inputAbout,
   formCard,
@@ -21,12 +18,8 @@ import {
   profileEditBtn,
   profileIconBtn,
   formAvatar,
-  profileName,
-  profileAbout,
-  profileAvatar,
 } from '../utils/constans.js';
 
-let userId;
 
 const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-25',
@@ -36,24 +29,25 @@ const api = new Api({
   }
 });
 
-
-api.getUserData()
-  .then((res) => {
-    userId = res._id;
-    profileName.textContent = res.name
-    profileAbout.textContent = res.about
-    profileAvatar.src = res.avatar
-    profileAvatar.alt = res.name
-  })
-  .catch((err) => {
-    console.log(err)
-});
-
 const userInfo = new UserInfo({
   nameSelector: selectors.profileName,
   aboutSelector: selectors.profileAbout,
   avatarSelector: selectors.profileAvatar
  });
+
+Promise.all([api.getUserData(), api.getCards()])
+  .then((res) => {
+    const userData = res[0];
+    userInfo.setUserInfo(userData);
+
+    const cardsData = res[1];
+    cardSection.renderer(cardsData);
+  })
+  .catch((err) => {
+    console.log(err)
+});
+
+
 
 const cardSection = new Section({
   renderer: (item) => {
@@ -61,13 +55,6 @@ const cardSection = new Section({
   }
 }, selectors.cardList);
 
-api.getCards()
-.then((res) => {
-  cardSection.renderer(res)
-})
-.catch((err) => {
-  console.log(err);
-})
 
 const avatarForm = new PopupWithForm(selectors.popupAvatar, submitAvatar);
 avatarForm.setEventListeners();
@@ -75,17 +62,17 @@ avatarForm.setEventListeners();
 const profileForm = new PopupWithForm(selectors.popupProfile, submitProfile);
 profileForm.setEventListeners();
 
-const popupWithImage = new PopupWithImage({popupSelector: selectors.popupFullScreen});
-popupWithImage.setEventListeners();
-
 const cardForm = new PopupWithForm(selectors.popupCard, submitCard);
 cardForm.setEventListeners();
 
+const popupWithImage = new PopupWithImage({popupSelector: selectors.popupFullScreen});
+popupWithImage.setEventListeners();
+
 const confirmForm = new PopupWithConfirm(selectors.popupDelete, handleCardDelete);
+confirmForm.setEventListeners();
 
 function openCardDelete(card) {
   confirmForm.open(card);
-  confirmForm.setEventListeners();
 }
 
 function handleCardDelete() {
@@ -99,11 +86,11 @@ function handleCardDelete() {
     })
 }
 
-function submitAvatar() {
+function submitAvatar(inputs) {
   avatarForm.onLoading();
-  api.setUserAvatar(inputAvatarLink.value)
+  api.setUserAvatar(inputs.avatar)
     .then((res) => {
-      userInfo.setAvatar(res.avatar);
+      userInfo.setUserInfo(res);
       avatarForm.close();
     })
     .catch((err) => {
@@ -114,11 +101,11 @@ function submitAvatar() {
     })
 }
 
-function submitProfile() {
+function submitProfile(inputs) {
   profileForm.onLoading();
-  api.setUserProfile(inputName.value, inputAbout.value)
+  api.setUserProfile(inputs.name, inputs.about)
     .then((res) => {
-      userInfo.setUserInfo(res.name, res.about);
+      userInfo.setUserInfo(res);
       profileForm.close();
     })
     .catch((err) => {
@@ -128,8 +115,26 @@ function submitProfile() {
       profileForm.offLoading(true);
     })
 }
+
+function submitCard(inputs) {
+  cardForm.onLoading();
+  api.setCard(inputs.imageName, inputs.imgLink)
+  .then((res) => {
+      const cardElement = generateCard(res);
+      cardSection.addItem(cardElement);
+      cardForm.close();
+  })
+  .catch((err) => {
+      console.log(err);
+  })
+  .finally(() => {
+    cardForm.offLoading(true);
+  })
+}
+
+
 function generateCard(item) {
-  const card = new Card(item.name, item.link, item.owner, item.likes, item._id, userId,  '#card', handleCardLike, openCardDelete, handleCardClick)
+  const card = new Card(item.name, item.link, item.owner, item.likes, item._id, userInfo.getId(),  '#card', handleCardLike, openCardDelete, handleCardClick)
   return card.render();
 }
 
@@ -138,10 +143,10 @@ function handleCardClick(name, link) {
 }
 
 function handleCardLike(card) {
-  if (card._hasLiked()) {
+  if (card.hasLiked()) {
     api.removeLike(card._cardId)
     .then((res) => {
-    card._likes = res.likes;
+    card.likes = res.likes;
     card.removeLike(res.likes);
   })
     .catch((err) => {
@@ -150,28 +155,13 @@ function handleCardLike(card) {
   }else {
     api.addLike(card._cardId)
     .then((res) => {
-    card._likes = res.likes;
+    card.likes = res.likes;
     card.addLike(res.likes);
     })
     .catch((err) => {
     console.log(err);
     })
   }
-}
-
-function submitCard() {
-  cardForm.onLoading();
-  api.setCard(inputCardName.value, inputCardLink.value)
-  .then((res) => {
-      const cardElement = generateCard(res);
-      cardSection.addItem(cardElement);
-  })
-  .catch((err) => {
-      console.log(err);
-  })
-  .finally(() => {
-    cardForm.offLoading(true);
-  })
 }
 
 
